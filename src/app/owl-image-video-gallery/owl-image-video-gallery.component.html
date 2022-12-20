@@ -1,0 +1,52 @@
+<section class="owl-image-videogallery-wrap">
+    <div class="owlcarousel-singleboxwrap">
+    <owl-carousel-o [options]="singalcarouselOptions" class="singalcarousel" #singalcarousel>
+        <ng-container *ngFor="let slide of owlArrayData; let i = index">
+            <ng-template carouselSlide [id]="slide.imageUrl">
+                <a (click)="fullviewopenmodel(slide.id)">
+                    <div class="owl-item-card">
+                        <div class="owl-item-card-imagediv">
+                          <video *ngIf="slide.videoUrl" controls>
+                            <source [src]="slide.videoUrl" type="video/mp4" />
+                          </video>
+                            <img [src]="slide.imageUrl" [alt]="slide.alt" [title]="slide.title" *ngIf="slide.imageUrl" />
+                        </div>
+                        <div class="owl-item-card-detaildiv">
+                            <p *ngIf="slide?.title" class="owl-card-title">{{ slide.title }}</p>
+                            <p *ngIf="slide?.desc" class="owl-card-desc">{{ slide.desc }}</p>
+                        </div>
+                    </div>
+                </a>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+    <button type="button" (click)="next()">Next</button>
+    <button type="button" (click)="prv()">Back</button>
+    </div>
+    <div class="owlcarousel-thumbnailboxwrap">
+    <owl-carousel-o [options]="thumbnailcarouselOptions" class="thumbnailcarousel" #thumbnailcarousel>
+        <ng-container *ngFor="let slide of owlArrayData; let i = index">
+            <ng-template carouselSlide [id]="(slide.imageUrl + i)">
+                <a (click)="singalcarousel.to(slide.imageUrl); openimage(slide.imageUrl + i)">
+                    <div
+                        class="owl-item-card"
+                        [ngClass]="{
+                            'owlcarousel-thumbnail-item-current': selectedImage === slide.imageUrl + i || (i == 0 && !selectedImage)
+                        }">
+                        <div class="owl-item-card-imagediv">
+                            <video *ngIf="slide.videoUrl" controls>
+                                <source [src]="slide.videoUrl" type="video/mp4" />
+                            </video>
+                            <img [src]="slide.imageUrl" [alt]="slide.alt" [title]="slide.title" *ngIf="slide.imageUrl" />
+                        </div>
+                        <div class="owl-item-card-detaildiv">
+                            <p *ngIf="slide?.title" class="owl-card-title">{{ slide.title }}</p>
+                            <p *ngIf="slide?.desc" class="owl-card-desc">{{ slide.desc }}</p>
+                        </div>
+                    </div>
+                </a>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+    </div>
+</section>
